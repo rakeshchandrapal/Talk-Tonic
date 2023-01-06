@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "357894116107",
+    "project_id": "talk-tonic-88858",
+    "storage_bucket": "talk-tonic-88858.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357894116107:android:0a3397524e5923f65bc80e",
+        "android_client_info": {
+          "package_name": "com.example.talktonic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357894116107-6iaep0ev51fr0lmcra5g0f5h29kqktq4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.talktonic",
+            "certificate_hash": "e643edf22774427dc16668b1410ef0d106e2ec2a"
+          }
+        },
+        {
+          "client_id": "357894116107-568omjsjba92tvouhrglpe6tohovgdv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBASFJjx9ma-b-Ppzgbkfsmf4sSYMqg4x4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357894116107-568omjsjba92tvouhrglpe6tohovgdv3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

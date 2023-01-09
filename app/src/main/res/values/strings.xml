@@ -11,6 +11,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="welcome_to">Welcome  To</string>
     <string name="mobile_number">Mobile Number</string>
-    <string name="send">SEND</string>
+    <string name="send">SEND OTP</string>
     <string name="hello_blank_fragment">hiii otp</string>
+    <string name="verify">VERIFY</string>
 </resources>

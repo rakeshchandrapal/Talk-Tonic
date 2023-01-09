@@ -1,39 +1,35 @@
 package com.example.talktonic
 
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupActionBarWithNavController
-import com.google.firebase.auth.FirebaseAuth
-
-
+import androidx.appcompat.app.AppCompatActivity
+import com.example.talktonic.authenticate.LoginActivity
+import com.example.talktonic.databinding.ActivityMainBinding
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : AppCompatActivity() {
 
-    // firebase variable
-//    private lateinit var auth : FirebaseAuth
-
-    private lateinit var navController: NavController
+    private lateinit  var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.homeScreenFragment)  as NavHostFragment
-        navController = navHostFragment.navController
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setupActionBarWithNavController(navController)
+        if(Firebase.auth.currentUser == null){
+            startActivity(Intent(this@MainActivity,LoginActivity::class.java))
+            finish()
+        }
+        binding.btnLogout.setOnClickListener{
+            Firebase.auth.signOut()
+            startActivity(Intent(this@MainActivity,LoginActivity::class.java))
+            finish()
+        }
     }
 
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
-    }
-    public override fun onStart() {
-        super.onStart()
-    }
 
 }

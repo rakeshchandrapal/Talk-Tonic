@@ -14,4 +14,7 @@
     <string name="send">SEND OTP</string>
     <string name="hello_blank_fragment">hiii otp</string>
     <string name="verify">VERIFY</string>
+    <string name="save">Save</string>
+    <string name="name">Name</string>
+    <string name="about">About</string>
 </resources>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.talktonic.GetUserDetailActivity
 import com.example.talktonic.MainActivity
 import com.example.talktonic.R
 import com.example.talktonic.databinding.ActivityOtpBinding
@@ -12,15 +13,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class OtpActivity : AppCompatActivity() {
 
     private  val TAG = "OtpActivity"
     private lateinit var binding: ActivityOtpBinding
-
     // Firebase instance variables
     private lateinit var auth: FirebaseAuth
-//    private lateinit var db: FirebaseFirestore
+    val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +61,7 @@ class OtpActivity : AppCompatActivity() {
                 .addOnCompleteListener(this){ task ->
                     if(task.isSuccessful){
                         Log.d(TAG,"LogIn : $credential")
-                        startActivity(Intent(this, MainActivity::class.java))
+                        startActivity(Intent(this, GetUserDetailActivity::class.java))
                         finish()
                     }
                     else {

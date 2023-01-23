@@ -5,9 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.example.talktonic.GetUserDetailActivity
 import com.example.talktonic.MainActivity
-import com.example.talktonic.R
+import com.example.talktonic.userDetails.GetUserDetailActivity
 import com.example.talktonic.databinding.ActivityOtpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -61,8 +60,40 @@ class OtpActivity : AppCompatActivity() {
                 .addOnCompleteListener(this){ task ->
                     if(task.isSuccessful){
                         Log.d(TAG,"LogIn : $credential")
-                        startActivity(Intent(this, GetUserDetailActivity::class.java))
-                        finish()
+
+                        Log.d(TAG, "Log in SuccessFull and get userdetail..")
+//                        val userName = FirebaseAuth.getInstance().currentUser!!.displayName
+//                        val isDetailNotAvailable = userName == null || userName == "null" || userName == ""
+//                        if(isDetailNotAvailable) {
+//                            Log.d(TAG, "Details is not available: $userName")
+//                            startActivity(Intent(this, GetUserDetailActivity::class.java))
+//                            finish()
+//                        }
+//                        else{
+//                            Log.d(TAG, userName.toString())
+//                            Log.d(TAG , "Detail is available ")
+//                            startActivity(Intent(this, MainActivity::class.java))
+//                            finish()
+//                        }
+                        db.collection("users")
+                            .document(auth.currentUser!!.uid).get().addOnCompleteListener{task ->
+                                if(task.isSuccessful){
+                                    if(task.result.exists()){
+//                                        Log.d(TAG, userName.toString())
+                                        Log.d(TAG , "Detail is available ")
+                                        startActivity(Intent(this, MainActivity::class.java))
+                                        finish()
+                                    }
+                                    else
+                                    {
+                                        Log.d(TAG, "Details is not available: ")
+                                        startActivity(Intent(this, GetUserDetailActivity::class.java))
+                                        finish()
+                                    }
+                                }
+
+                            }
+
                     }
                     else {
                         // Sign in failed, display a message and update the UI

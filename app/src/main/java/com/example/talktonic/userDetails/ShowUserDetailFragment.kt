@@ -17,6 +17,7 @@ import com.example.talktonic.R
 import com.example.talktonic.authenticate.LoginActivity
 import com.example.talktonic.databinding.FragmentShowUserDetailBinding
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -29,7 +30,11 @@ class ShowUserDetailFragment : Fragment() {
     private lateinit var firebaseRef : FirebaseStorage
     private lateinit var storage: StorageReference
 
+   private val currentUser = Firebase.auth.currentUser
 
+    private var userName: String = ""
+    private var userAbout: String = ""
+    private var userPhotoUrl: String = currentUser?.photoUrl.toString()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,9 +47,9 @@ class ShowUserDetailFragment : Fragment() {
 
         binding = FragmentShowUserDetailBinding.inflate(layoutInflater,container,false)
 
+        loadUserDetail()
+        loadProfilePhoto()
 
-
-        // Inflate the layout for this fragment
         return binding.root
     }
 
@@ -57,17 +62,45 @@ class ShowUserDetailFragment : Fragment() {
 
 
         binding.signOutButton.setOnClickListener{
-            Firebase.auth.signOut()
-            startActivity(Intent(requireContext(), LoginActivity::class.java))
-            activity?.finish()
-
+            signOut()
         }
 
-        loadProfilePhoto()
+    }
+
+
+    private fun loadUserDetail() {
+        Firebase.firestore.collection("users")
+            .document(currentUser?.phoneNumber.toString())
+            .addSnapshotListener { snapshot, e ->
+
+                if (e != null) {
+                    Log.d("TAG", "Error occurred in fetching user", e)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null) {
+                    userName = snapshot["userName"].toString()
+                    binding.userNameProfile.text = userName
+
+                    userAbout = snapshot["userAbout"].toString()
+                    binding.aboutTextProfile.text = userAbout
+
+                    binding.phoneNumberText.text = snapshot["userPhoneNumber"].toString()
+                } else {
+                    Log.d("TAG", "User details not available in firebase")
+                }
+
+            }
+    }
+
+
+    private fun signOut() {
+        Firebase.auth.signOut()
+        startActivity(Intent(requireContext(), LoginActivity::class.java))
+        activity?.finish()
     }
 
     private fun  loadProfilePhoto(){
-        val currentUser = Firebase.auth.currentUser
         if(currentUser != null) {
             Log.d(TAG,"Loading From FireBase ${currentUser.uid.toString() } hii ")
 

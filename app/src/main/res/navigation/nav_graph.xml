@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.talktonic.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_showUserDetailFragment2"
+            app:destination="@id/showUserDetailFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/showUserDetailFragment2"
+        android:name="com.example.talktonic.userDetails.ShowUserDetailFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_show_user_detail" />
+</navigation>

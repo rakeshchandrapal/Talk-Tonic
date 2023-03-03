@@ -3,20 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
-
+    app:startDestination="@id/chatFragment">
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.example.talktonic.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        android:id="@+id/chatFragment"
+        android:name="com.example.talktonic.ui.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" />
+    <fragment
+        android:id="@+id/callFragment"
+        android:name="com.example.talktonic.ui.CallFragment"
+        android:label="fragment_call"
+        tools:layout="@layout/fragment_call" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.talktonic.ui.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" >
         <action
-            android:id="@+id/action_mainFragment_to_showUserDetailFragment2"
-            app:destination="@id/showUserDetailFragment2" />
+            android:id="@+id/action_settingFragment_to_showUserDetailFragment"
+            app:destination="@id/showUserDetailFragment"
+           />
     </fragment>
     <fragment
-        android:id="@+id/showUserDetailFragment2"
+        android:id="@+id/groupFragment"
+        android:name="com.example.talktonic.ui.GroupFragment"
+        android:label="fragment_groups"
+        tools:layout="@layout/fragment_groups" />
+    <fragment
+        android:id="@+id/showUserDetailFragment"
         android:name="com.example.talktonic.userDetails.ShowUserDetailFragment"
-        android:label="Profile"
+        android:label="fragment_show_user_detail"
         tools:layout="@layout/fragment_show_user_detail" />
 </navigation>

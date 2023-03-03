@@ -1,6 +1,8 @@
 package com.example.talktonic.userDetails
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
@@ -10,8 +12,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.load.resource.bitmap.TransformationUtils.circleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.example.talktonic.R
 import com.example.talktonic.authenticate.LoginActivity
@@ -21,9 +21,9 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import java.io.InputStream
 
 class ShowUserDetailFragment : Fragment() {
+
     private val TAG = "ShowUserDetailFragment"
     private lateinit var  binding : FragmentShowUserDetailBinding
 
@@ -32,12 +32,19 @@ class ShowUserDetailFragment : Fragment() {
 
    private val currentUser = Firebase.auth.currentUser
 
+    private lateinit var preferences: SharedPreferences
+
     private var userName: String = ""
     private var userAbout: String = ""
+    private var userPhoneNumber : String = ""
     private var userPhotoUrl: String = currentUser?.photoUrl.toString()
+//    val preferences = requireActivity().getSharedPreferences("User_Detail",Context.MODE_PRIVATE)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Log.d("Prefs", requireActivity().toString())
+        preferences = requireActivity().getSharedPreferences("User_Detail", Context.MODE_PRIVATE)
     }
 
     override fun onCreateView(
@@ -46,7 +53,6 @@ class ShowUserDetailFragment : Fragment() {
     ): View? {
 
         binding = FragmentShowUserDetailBinding.inflate(layoutInflater,container,false)
-
         loadUserDetail()
         loadProfilePhoto()
 
@@ -80,17 +86,34 @@ class ShowUserDetailFragment : Fragment() {
 
                 if (snapshot != null) {
                     userName = snapshot["userName"].toString()
-                    binding.userNameProfile.text = userName
-
                     userAbout = snapshot["userAbout"].toString()
-                    binding.aboutTextProfile.text = userAbout
+                    userPhoneNumber = snapshot["userPhoneNumber"].toString()
+                    Log.d(TAG,"$userName, $userAbout, $userPhoneNumber")
 
-                    binding.phoneNumberText.text = snapshot["userPhoneNumber"].toString()
+                    val editor = preferences.edit()
+                    editor?.putString("userName",userName)
+                    editor?.putString("userAbout",userAbout)
+                    editor?.putString("userPhoneNumber",userPhoneNumber)
+                    editor?.apply()
+
+                    userName = preferences.getString("userName"," ").toString()
+                    userAbout = preferences.getString("userAbout"," ").toString()
+                    userPhoneNumber = preferences.getString("userPhoneNumber"," ").toString()
+                    Log.d("Prefs", userPhoneNumber)
+
+                    binding.userNameProfile.text = userName
+                    binding.aboutTextProfile.text = userAbout
+                    binding.phoneNumberText.text = userPhoneNumber
+                    Log.d(TAG,"$userName, $userAbout, $userPhoneNumber")
                 } else {
                     Log.d("TAG", "User details not available in firebase")
                 }
 
             }
+    }
+
+    private fun loadUserDetailFromPref(){
+
     }
 
 

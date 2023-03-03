@@ -76,7 +76,7 @@ class OtpActivity : AppCompatActivity() {
 //                            finish()
 //                        }
                         db.collection("users")
-                            .document(auth.currentUser!!.uid).get().addOnCompleteListener{task ->
+                            .document(auth.currentUser!!.phoneNumber.toString()).get().addOnCompleteListener{  task ->
                                 if(task.isSuccessful){
                                     if(task.result.exists()){
 //                                        Log.d(TAG, userName.toString())

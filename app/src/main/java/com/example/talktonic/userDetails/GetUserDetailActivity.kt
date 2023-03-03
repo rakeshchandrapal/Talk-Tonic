@@ -74,6 +74,7 @@ class GetUserDetailActivity : AppCompatActivity() {
 
         if(currentUser != null && !areDetailsIsInValid()){
 
+
             Log.d(TAG, "Are details invalid: ${areDetailsIsInValid()}")
 
             db.collection("users")

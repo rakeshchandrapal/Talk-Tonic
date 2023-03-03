@@ -17,4 +17,8 @@
     <string name="save">Save</string>
     <string name="name">Name</string>
     <string name="about">About</string>
+    <string name="calls">Calls</string>
+    <string name="groups">Groups</string>
+    <string name="chats">chats</string>
+    <string name="setting">setting</string>
 </resources>
